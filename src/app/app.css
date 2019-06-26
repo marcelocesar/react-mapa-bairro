@@ -1,0 +1,26 @@
+header,
+main {
+  margin-left: 300px;
+  transition: 200ms all;
+}
+
+@media only screen and (max-width: 992px) {
+  header,
+  main {
+    margin-left: 0;
+    transition: 200ms all;
+  }
+}
+
+main {
+  margin-top: 0;
+}
+
+.sidenav {
+  width: 300px;
+  transition: 200ms all;
+}
+
+.p-0 {
+  padding: 0 !important;
+}
