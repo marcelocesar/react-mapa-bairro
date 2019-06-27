@@ -6,14 +6,19 @@ import sortBy from 'sort-by'
 
 class Sidebar extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      query: ''
+    }
+  }
+
   static propTypes = {
     markers: PropTypes.array.isRequired,
     onMarkerClick: PropTypes.func.isRequired
   }
 
-  state = {
-    query: ''
-  }
+  
 
   updateQuery = (query) => {
     this.setState({ query: query.trim() });
@@ -54,7 +59,7 @@ class Sidebar extends Component {
           </div>
         </nav>
         {showingMarkers && showingMarkers.map(marker => (
-          <SideNavItem key={marker.venue.id} onClick={() => onMarkerClick(marker)}>
+          <SideNavItem key={marker.venue.id} name={marker.venue.name} onClick={() => onMarkerClick(marker)}>
             {marker.venue.name}
           </SideNavItem>
         ))}
