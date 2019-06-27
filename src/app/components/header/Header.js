@@ -11,8 +11,8 @@ class Header extends Component {
             <Row>
               <Col s={12} m={12} i={12}>
                 <a href="#!" className="brand-logo">
-                  Logo
-                                </a>
+                  {this.props.title}
+                </a>
                 <a href="#!" data-target="sidenav" className="sidenav-trigger">
                   <i className="material-icons">menu</i>
                 </a>
