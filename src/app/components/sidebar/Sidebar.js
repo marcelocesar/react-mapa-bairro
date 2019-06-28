@@ -2,23 +2,18 @@ import React, { Component } from "react";
 import { SideNav, SideNavItem } from "react-materialize";
 import PropTypes from 'prop-types';
 import escapeRegExp from 'escape-string-regexp';
-import sortBy from 'sort-by'
+import sortBy from 'sort-by';
 
 class Sidebar extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      query: ''
-    }
+  state = {
+    query: ''
   }
 
   static propTypes = {
     markers: PropTypes.array.isRequired,
     onMarkerClick: PropTypes.func.isRequired
   }
-
-  
 
   updateQuery = (query) => {
     this.setState({ query: query.trim() });
@@ -31,11 +26,12 @@ class Sidebar extends Component {
   render() {
     const { markers, onMarkerClick } = this.props;
     const { query } = this.state;
+
     let showingMarkers;
 
     if (query) {
         const match = new RegExp(escapeRegExp(query), 'i');
-        showingMarkers = markers.filter((marker) => match.test(marker.venue.name))
+        showingMarkers = markers.filter((marker) => match.test(marker.name))
     } else {
       showingMarkers = markers
     }
@@ -54,13 +50,13 @@ class Sidebar extends Component {
               <label className="label-icon" htmlFor="search">
                 <i className="material-icons">search</i>
               </label>
-              <i className="material-icons">close</i>
+              <i className="material-icons" onClick={this.clearQueryƒ}>close</i>
             </div>
           </div>
         </nav>
-        {showingMarkers && showingMarkers.map(marker => (
-          <SideNavItem key={marker.venue.id} name={marker.venue.name} onClick={() => onMarkerClick(marker)}>
-            {marker.venue.name}
+        {showingMarkers && showingMarkers.map((marker) => (
+          <SideNavItem key={marker.id} onClick={() => onMarkerClick(marker)}>
+            {marker.name}
           </SideNavItem>
         ))}
 

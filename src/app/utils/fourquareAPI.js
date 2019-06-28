@@ -23,7 +23,7 @@ export const get = (VENUE_ID) =>
     .then(data => data)
 
 export const getAll = () =>
-  fetch(`${API_URL}/venues/explore?ll=-15.816286,-47.998109&q=Diversão&radius=300&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&v=${VAL_DATE}`, { headers })
+  fetch(`${API_URL}/venues/search?near=Aguas%20Claras%20Brasília&radius=300&limit=2&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&v=${VAL_DATE}`, { headers })
     .then(res => res.json())
     .then(data => data)
 
