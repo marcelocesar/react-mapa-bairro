@@ -31,7 +31,7 @@ class Sidebar extends Component {
 
     if (query) {
         const match = new RegExp(escapeRegExp(query), 'i');
-        showingMarkers = markers.filter((marker) => match.test(marker.name))
+        showingMarkers = markers.filter((marker) => match.test(marker.venue.name))
     } else {
       showingMarkers = markers
     }
@@ -55,8 +55,8 @@ class Sidebar extends Component {
           </div>
         </nav>
         {showingMarkers && showingMarkers.map((marker) => (
-          <SideNavItem key={marker.id} onClick={() => onMarkerClick(marker)}>
-            {marker.name}
+          <SideNavItem key={marker.venue.id} onClick={() => onMarkerClick(marker)}>
+            {marker.venue.name}
           </SideNavItem>
         ))}
 

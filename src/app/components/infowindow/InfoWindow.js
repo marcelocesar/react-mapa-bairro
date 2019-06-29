@@ -39,7 +39,7 @@ const InfoWindow = (props) => {
 
       </div>
       <div style={{ fontSize: 14, color: 'green' }}>
-
+        {console.log('place :', place)}
       </div>
     </div>
   );

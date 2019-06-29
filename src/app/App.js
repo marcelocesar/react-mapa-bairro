@@ -25,10 +25,10 @@ class App extends Component {
     this.initMap();
   }
 
-  initMap() {
-    FoursquareAPI.getAll().then(data => {
+  async initMap() {
+    await FoursquareAPI.getAll().then(data => {
       this.setState({
-        markers: data.response.venues
+        markers: data.response.groups[0].items
       })
     })
   }
@@ -36,7 +36,7 @@ class App extends Component {
   updateMarkerClick = (marker) => {
     this.setState((state) => ({
       markers: state.markers.map((m) => {
-        if (m.id === marker.id) {
+        if (m.venue.id === marker.venue.id) {
           m.show = true;
         } else {
           m.show = false;
@@ -49,11 +49,11 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Header title="Mapa do Bairro" />
         {this.state.markers && this.state.markers.length > 0 ?
           <Sidebar
             markers={this.state.markers}
             onMarkerClick={this.updateMarkerClick} /> : null}
-        <Header title="Mapa do Bairro" />
         {this.state.markers && this.state.markers.length > 0 ? <MapView places={this.state.markers} /> : null}
       </div>
     );

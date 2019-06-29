@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from "./../marker/Marker";
+import "./MapView.css"
 
 class MapView extends Component {
 
   static defaultProps = {
     key: "AIzaSyDwdFNems2FWUbGrDUbQTKngsZ86m0yPh4",
     center: { lat: -15.8353128, lng: -48.0284164 },
-    zoom: 15
+    zoom: 16
   };
 
   state = {
@@ -23,30 +24,42 @@ class MapView extends Component {
   }
 
   onChildClickCallback = (key) => {
-    this.setState((state) => {
-      const index = state.places.findIndex(e => e.id === key);
-      state.places[index].show = !state.places[index].show;
-      return { places: state.places };
-    });
-  };
+    this.setState((state) => ({
+      places: state.places.map((m) => {
+        if (m.venue.id === key) {
+          m.show = !m.show;
+        } else {
+          m.show = false;
+        }
+        return m;
+      })
+    }))
+  }
 
   render() {
     const { places } = this.state;
-    return (
-      <div style={{ height: '100vh', width: '100%' }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyDwdFNems2FWUbGrDUbQTKngsZ86m0yPh4" }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-          onChildClick={this.onChildClickCallback}
-        >
-          {console.log('places :', places)}
-          {places.map(place =>
-            (<Marker
 
-            />))}
-        </GoogleMapReact>
-      </div>
+    return (
+      <main>
+        <div className="map">
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: this.props.key }}
+            defaultCenter={this.props.center}
+            defaultZoom={this.props.zoom}
+            onChildClick={this.onChildClickCallback}
+          >
+            {console.log('places :', places)}
+            {places.map(place =>
+              (<Marker
+                key={place.venue.id}
+                lat={place.venue.location.lat}
+                lng={place.venue.location.lng}
+                show={place.show}
+                place={place.venue}
+              />))}
+          </GoogleMapReact>
+        </div>
+      </main>
     );
   }
 }
