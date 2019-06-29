@@ -48,7 +48,6 @@ class MapView extends Component {
             defaultZoom={this.props.zoom}
             onChildClick={this.onChildClickCallback}
           >
-            {console.log('places :', places)}
             {places.map(place =>
               (<Marker
                 key={place.venue.id}
