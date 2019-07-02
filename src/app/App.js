@@ -26,11 +26,14 @@ class App extends Component {
   }
 
   async initMap() {
-    await FoursquareAPI.getAll().then(data => {
-      this.setState({
-        markers: data.response.groups[0].items
+    await FoursquareAPI.getAll()
+      .then(data => {
+        this.handleError(data);
+        this.setState({
+          markers: data.response.groups[0].items
+        })
       })
-    })
+      .catch(error => M.toast({html: error.message, classes: 'red darken-1'}))
   }
 
   updateMarkerClick = (marker) => {
@@ -44,6 +47,30 @@ class App extends Component {
         return m;
       })
     }))
+  }
+
+  handleError(response) {
+
+    if (response.meta.code !== 200) {
+      switch(response.meta.errorType) {
+        case 'invalid_auth':
+          throw new Error ('OAuth token was not provided or was invalid.');
+        case 'param_error':
+          throw new Error ('A required parameter was missing or a parameter was malformed. This is also used if the resource ID in the path is incorrect.');
+        case 'endpoint_error':
+          throw new Error ('The requested path does not exist.');
+        case 'not_authorized':
+          throw new Error ('Although authentication succeeded, the acting user is not allowed to see this information due to privacy restrictions.');
+        case 'rate_limit_exceeded':
+          throw new Error ('Rate limit for this hour exceeded.');
+        case 'quota_exceeded':
+          throw new Error ('Daily call quota exceeded.');
+        case 'deprecated':
+          throw new Error ('Something about this request is using deprecated functionality, or the response format may be about to change.');
+        default:
+          throw new Error ('Server is currently experiencing issues.');
+      }
+    }
   }
 
   render() {
