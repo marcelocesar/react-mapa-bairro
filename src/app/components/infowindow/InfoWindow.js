@@ -8,12 +8,17 @@ class InfoWindow extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { place } = this.props;
 
     return (
-      <div className="infobox">
+      <div
+        className="infobox"
+        role="dialog"
+        aria-labelledby={place.venue.name}
+        aria-modal={place.show}>
         <div style={{ fontSize: 16 }}>
-          {place.name}
+          {place.venue.name}
         </div>
       </div>
     );

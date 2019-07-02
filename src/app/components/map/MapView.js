@@ -54,7 +54,8 @@ class MapView extends Component {
                 lat={place.venue.location.lat}
                 lng={place.venue.location.lng}
                 show={place.show}
-                place={place.venue}
+                place={place}
+                arial-expanded={place.show}
               />))}
           </GoogleMapReact>
         </div>

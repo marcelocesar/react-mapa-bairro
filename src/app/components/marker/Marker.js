@@ -14,8 +14,8 @@ const Marker = (props) => {
 
   return (
     <Fragment>
-      <div style={markerStyle} />
-      {props.show && <InfoWindow place={props.place} />}
+      <div style={markerStyle} aria-selected={props.show} />
+      {props.show && <InfoWindow place={props.place}  />}
     </Fragment>
   );
 };

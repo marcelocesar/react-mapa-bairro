@@ -38,10 +38,10 @@ class Sidebar extends Component {
     showingMarkers.sort(sortBy('name'));
 
     return (
-      <SideNav id="sidenav" fixed options={{ closeOnClick: true }}>
+      <SideNav id="sidenav" fixed options={{ closeOnClick: true }} role="navigation">
         <nav>
           <div className="nav-wrapper">
-            <div className="input-field">
+            <div className="input-field" role="search">
               <input
                 id="search"
                 type="search"
