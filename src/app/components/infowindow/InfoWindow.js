@@ -8,7 +8,6 @@ class InfoWindow extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { place } = this.props;
 
     return (

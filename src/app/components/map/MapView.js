@@ -11,10 +11,6 @@ class MapView extends Component {
     zoom: 16
   };
 
-  state = {
-    places: [],
-  };
-
   componentDidMount() {
     this.setState({ places: this.props.places })
   }
@@ -24,20 +20,11 @@ class MapView extends Component {
   }
 
   onChildClickCallback = (key) => {
-    this.setState((state) => ({
-      places: state.places.map((m) => {
-        if (m.venue.id === key) {
-          m.show = !m.show;
-        } else {
-          m.show = false;
-        }
-        return m;
-      })
-    }))
+    this.props.onMarkerClick(key);
   }
 
   render() {
-    const { places } = this.state;
+    const { places } = this.props;
 
     return (
       <main>
